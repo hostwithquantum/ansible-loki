@@ -1,0 +1,9 @@
+---
+- name: Prepare hosts
+  hosts: all
+  tasks:
+  - name: Install unzip
+    package:
+      name:
+        - unzip
+    delegate_to: localhost

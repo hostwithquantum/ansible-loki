@@ -1,0 +1,30 @@
+{{ ansible_managed | comment }}
+server:
+  http_listen_adress: 127.0.0.1
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+# Positions
+positions:
+  filename: /tmp/positions.yaml
+
+# Loki Server URL
+clients:
+  - url: http://{{ promtail_config_client.loki_address }}:{{ promtail_config_client.loki_port }}/loki/api/v1/push
+    tenant_id: {{ promtail_config_client.tenant_id }}
+    external_labels:
+{% for label_key in promtail_config_client.external_labels %}
+      {{ label_key }}: {{ promtail_config_client.external_labels[label_key] }}
+{% endfor %}
+
+{% if __loki_go_os == 'linux' %}
+scrape_configs:
+  - job_name: journal
+    journal:
+      path: {{ promtail_config_scrape_journald_path }}
+      labels:
+        job: journal
+    relabel_configs:
+      - source_labels: ['__journal__systemd_unit']
+        target_label: 'unit'
+{% endif %}

@@ -1,0 +1,20 @@
+---
+kind: pipeline
+name: default
+
+volumes:
+  - name: docker
+    host:
+      path: /var/run/docker.sock
+
+workspace:
+  base: /ansible-loki
+
+steps:
+  - name: molecule test
+    image: quay.io/ansible/molecule:2.22
+    volumes:
+      - name: docker
+        path: /var/run/docker.sock
+    commands:
+      - molecule --debug test

@@ -1,0 +1,39 @@
+---
+- name: check if local promtail download exists
+  stat:
+    path: "/tmp/{{ __promtail_archive }}"
+  register: promtail_exists
+
+- block:
+    - name: Download promtail release
+      become: false
+      get_url:
+        url: "{{ __promtail_download }}"
+        dest: "/tmp/{{ __promtail_archive }}"
+        checksum: "sha256:{{ __loki_download_github }}/{{ loki_version }}/SHA256SUMS"
+      register: _download_binary
+      until: _download_binary is succeeded
+      retries: 5
+      delay: 2
+      delegate_to: localhost
+      check_mode: false
+
+    - name: Unpack promtail release
+      become: false
+      unarchive:
+        src: "/tmp/{{ __promtail_archive }}"
+        dest: "/tmp"
+        creates: "/tmp/promtail-{{ __loki_go_os }}-{{ __loki_go_arch }}"
+      delegate_to: localhost
+      check_mode: false
+  when: not loki_exists.stat.exists
+
+- name: Distribute promtail to servers
+  copy:
+    src: "/tmp/promtail-{{ __loki_go_os }}-{{ __loki_go_arch }}"
+    dest: "/usr/local/bin/promtail"
+    mode: 0755
+    owner: root
+    group: root
+  notify: restart promtail
+  when: not ansible_check_mode

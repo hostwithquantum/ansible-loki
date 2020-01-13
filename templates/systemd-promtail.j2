@@ -1,0 +1,14 @@
+[Unit]
+Description=Promtail Loki Agent
+Documentation=https://github.com/grafana/loki
+After=loki.service
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/promtail -config.file {{ promtail_config_directory }}/promtail.yml
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

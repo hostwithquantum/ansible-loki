@@ -1,0 +1,21 @@
+---
+loki_version: v1.2.0
+
+# FIXME: install Apache or nginx for auth
+loki_config_directory: /etc/loki
+loki_config_auth: true
+loki_config_tmp: /tmp/loki
+loki_config_retention: 840h
+loki_config_period: 168h
+loki_config_http_address: 127.0.0.1
+loki_config_http_port: 3100
+
+promtail_config_directory: /etc/promtail
+promtail_config_client:
+  loki_address: 127.0.0.1
+  loki_port: 3100
+  tenant_id: luzilla
+  external_labels:
+    node: "{{ inventory_hostname }}"
+
+promtail_config_scrape_journald_path: /run/log/journal

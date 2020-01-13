@@ -1,0 +1,31 @@
+---
+__loki_go_os_map:
+  alpine: linux
+  archlinux: linux
+  darwin: darwin
+  debian: linux
+  freebsd: freebsd
+  # 'hp-ux'
+  mandrake: linux
+  redhat: linux
+  # solaris
+  suse: linux
+
+__loki_go_os: "{{ __loki_go_os_map[ansible_os_family | lower] | default('linux') }}"
+
+__loki_go_arch_map:
+  i386: '386'
+  x86_64: 'amd64'
+  aarch64: 'arm64'
+  armv7l: 'armv7'
+  armv6l: 'armv6'
+
+__loki_go_arch: "{{ __loki_go_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+
+__loki_download_github: "https://github.com/grafana/loki/releases/download"
+
+__loki_archive: "loki-{{ __loki_go_os }}-{{ __loki_go_arch }}.zip"
+__loki_download: "{{ __loki_download_github }}/{{ loki_version }}/{{ __loki_archive }}"
+
+__promtail_archive: "promtail-{{ __loki_go_os }}-{{ __loki_go_arch }}.zip"
+__promtail_download: "{{ __loki_download_github }}/{{ loki_version }}/{{ __promtail_archive }}"
