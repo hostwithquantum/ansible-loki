@@ -9,6 +9,9 @@ User=root
 ExecStart=/usr/local/bin/promtail -config.file {{ promtail_config_directory }}/promtail.yml
 Restart=always
 RestartSec=10
+StandardOutput=journal
+StandardError=journal
+Environment=SYSTEMD_LOG_LEVEL=debug
 
 [Install]
 WantedBy=multi-user.target

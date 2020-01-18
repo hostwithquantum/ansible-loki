@@ -1,4 +1,5 @@
 ---
+# FIXME: this should only run for the role
 - name: Install systemd-unit
   template:
     src: "templates/systemd-{{ item }}.j2"
@@ -11,6 +12,7 @@
     - reload systemd for promtail
   when: "__loki_go_os == 'linux'"
 
+# FIXME: this should only run for the role
 - name: Create config directories
   file:
     mode: '0755'

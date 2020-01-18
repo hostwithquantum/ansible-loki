@@ -8,6 +8,9 @@ Type=simple
 ExecStart=/usr/local/bin/loki -config.file /etc/loki/loki.yml
 Restart=always
 RestartSec=10
+StandardOutput=journal
+StandardError=journal
+Environment=SYSTEMD_LOG_LEVEL=debug
 
 [Install]
 WantedBy=multi-user.target

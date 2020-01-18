@@ -5,6 +5,8 @@ auth_enabled: {{ loki_config_auth }}
 server:
   http_listen_address: {{ loki_config_http_address }}
   http_listen_port: {{ loki_config_http_port }}
+  grpc_listen_address: 127.0.0.1
+  log_level: {{ loki_config_log_level }}
 
 ingester:
   lifecycler:
