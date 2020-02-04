@@ -21,6 +21,8 @@
   with_items:
     - "{{ loki_config_directory }}"
     - "{{ promtail_config_directory }}"
+    - "{{ loki_config_store }}"
+    - /var/lib/promtail
 
 - name: Setup configuration
   template:
