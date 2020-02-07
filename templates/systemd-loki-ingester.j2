@@ -1,11 +1,11 @@
 [Unit]
-Description=Loki Log Aggregator
+Description=Ingester for Loki Log Aggregator
 Documentation=https://github.com/grafana/loki
 After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/loki -config.file /etc/loki/loki.yml
+ExecStart=/usr/local/bin/loki -config.file /etc/loki/loki.yml -target ingester
 Restart=always
 RestartSec=10
 StandardOutput=journal

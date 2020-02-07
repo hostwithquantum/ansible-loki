@@ -17,4 +17,4 @@ steps:
       - name: docker
         path: /var/run/docker.sock
     commands:
-      - molecule --debug test
+      - molecule test

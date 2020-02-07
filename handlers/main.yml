@@ -1,22 +1,13 @@
 ---
-- name: reload systemd for loki
+- name: reload systemd
   systemd:
-    name: loki
+    name: "{{ item }}"
     daemon_reload: yes
     enabled: yes
+  with_items: '{{ loki_parts_to_install }}'
 
-- name: reload systemd for promtail
-  systemd:
-    name: promtail
-    daemon_reload: yes
-    enabled: yes
-
-- name: restart loki
+- name: restart systemd units
   service:
-    name: loki
+    name: "{{ item }}"
     state: restarted
-
-- name: restart promtail
-  service:
-    name: promtail
-    state: restarted
+  with_items: '{{ loki_parts_to_install }}'

@@ -35,5 +35,5 @@
     mode: 0755
     owner: root
     group: root
-  notify: restart promtail
+  notify: restart systemd units
   when: not ansible_check_mode

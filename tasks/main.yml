@@ -1,18 +1,14 @@
 ---
-# FIXME: this should only run for the role
 - name: Install systemd-unit
   template:
-    src: "templates/systemd-{{ item }}.j2"
+    src: "systemd-{{ item }}.j2"
     dest: "/etc/systemd/system/{{ item }}.service"
-  with_items:
-    - loki
-    - promtail
+  with_items: '{{ loki_parts_to_install }}'
   notify:
-    - reload systemd for loki
-    - reload systemd for promtail
+    - reload systemd
   when: "__loki_go_os == 'linux'"
 
-# FIXME: this should only run for the role
+#### XXX split into loki and promtail parts?
 - name: Create config directories
   file:
     mode: '0755'
@@ -23,23 +19,25 @@
     - "{{ promtail_config_directory }}"
     - "{{ loki_config_store }}"
     - /var/lib/promtail
+  when: __install_loki or __install_promtail
 
+#### XXX split into loki and promtail parts?
 - name: Setup configuration
   template:
-    src: "templates/{{ item }}.yml.j2"
+    src: "{{ item }}.yml.j2"
     dest: "/etc/{{ item }}/{{ item }}.yml"
     mode: '0644'
   with_items:
     - loki
     - promtail
+  when: __install_loki or __install_promtail
   notify:
-    - restart loki
-    - restart promtail
+    - restart systemd units
 
 - name: Install loki
   include_tasks: loki.yml
-  when: "'loki' in group_names"
+  when: __install_loki
 
 - name: Install promtail
   include_tasks: promtail.yml
-  when: "'promtail' in group_names"
+  when: __install_promtail
