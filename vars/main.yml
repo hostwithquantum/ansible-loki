@@ -30,5 +30,5 @@ __loki_download: "{{ __loki_download_github }}/{{ loki_version }}/{{ __loki_arch
 __promtail_archive: "promtail-{{ __loki_go_os }}-{{ __loki_go_arch }}.zip"
 __promtail_download: "{{ __loki_download_github }}/{{ loki_version }}/{{ __promtail_archive }}"
 
-__install_loki: "{{ loki_parts_to_install | join is match('loki-.*') }}"
+__install_loki: "{{ loki_parts_to_install | join is search('loki-.*') }}"
 __install_promtail: "{{ 'promtail' in loki_parts_to_install }}"

@@ -26,7 +26,7 @@
         creates: "/tmp/promtail-{{ __loki_go_os }}-{{ __loki_go_arch }}"
       delegate_to: localhost
       check_mode: false
-  when: not loki_exists.stat.exists
+  when: not promtail_exists.stat.exists
 
 - name: Distribute promtail to servers
   copy:

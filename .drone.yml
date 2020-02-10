@@ -16,5 +16,9 @@ steps:
     volumes:
       - name: docker
         path: /var/run/docker.sock
+    environment:
+      MOLECULE_NO_LOG: no
+      NETRC: "" # drone automatically sets up .netrc for github login
+                # but that breaks the loki/promtail release downloads 
     commands:
       - molecule test
