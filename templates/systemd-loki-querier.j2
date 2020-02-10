@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/loki -config.file /etc/loki/loki.yml -target querier
+ExecStart=/usr/local/bin/loki -config.file /etc/loki/loki.yml -target querier -server.grpc-listen-port 9096 -server.http-listen-port 3101
 Restart=always
 RestartSec=10
 StandardOutput=journal
