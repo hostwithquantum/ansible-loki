@@ -33,10 +33,7 @@
     src: "{{ item }}.yml.j2"
     dest: "/etc/{{ item }}/{{ item }}.yml"
     mode: '0644'
-  with_items:
-    - "{{ (__install_loki and 'loki') or omit }}"
-    - "{{ (__install_promtail and 'promtail') or omit }}"
-  when: __install_loki or __install_promtail
+  with_items: "{{ loki_parts_to_install }}"
   notify:
     - restart systemd units
 
