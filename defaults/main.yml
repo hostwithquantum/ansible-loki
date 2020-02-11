@@ -3,9 +3,7 @@ loki_version: v1.2.0
 
 loki_parts_to_install:
   - promtail
-  - loki-distributor
-  - loki-ingester
-  - loki-querier
+  - loki
 
 # FIXME: install Apache or nginx for auth
 loki_config_directory: /etc/loki

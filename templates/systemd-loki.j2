@@ -1,11 +1,11 @@
 [Unit]
-Description=Ingester for Loki Log Aggregator
+Description=Loki Log Aggregator
 Documentation=https://github.com/grafana/loki
 After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/loki -config.file /etc/loki/loki.yml -target ingester -server.grpc-listen-port 9097 -server.http-listen-port 3102
+ExecStart=/usr/local/bin/loki -config.file /etc/loki/loki.yml
 Restart=always
 RestartSec=10
 StandardOutput=journal

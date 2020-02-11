@@ -3,3 +3,7 @@
   hosts: all
   roles:
     - role: ansible-loki
+      vars:
+        loki_parts_to_install:
+          - loki
+          - promtail

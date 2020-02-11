@@ -28,9 +28,7 @@ def test_promtail_configuration(host, name):
 
 
 @pytest.mark.parametrize("name", [
-    ("loki-distributor"),
-    ("loki-ingester"),
-    ("loki-querier"),
+    ("loki"),
     ("promtail"),
 ])
 def test_services_enabled(host, name):
