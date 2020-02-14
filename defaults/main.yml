@@ -20,6 +20,7 @@ promtail_config_log_level: info
 promtail_config_client_loki_address: 127.0.0.1
 promtail_config_client_loki_port: 3100
 promtail_config_client_tenant_id: luzilla
+promtail_config_client_set_tenant_id: true
 promtail_config_client_external_labels:
     node: "{{ inventory_hostname }}"
 
