@@ -12,7 +12,7 @@ positions:
 
 # Loki Server URL
 clients:
-  - url: http://{{ promtail_config_client_loki_address }}:{{ promtail_config_client_loki_port }}/loki/api/v1/push
+  - url: http://{{ promtail_config_client_loki_address }}:{{ promtail_config_client_loki_port }}{{ promtail_config_client_loki_path }}
 {% if promtail_config_client_set_tenant_id %}
     tenant_id: {{ promtail_config_client_tenant_id }}
 {% endif %}
