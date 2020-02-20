@@ -1,4 +1,30 @@
 ---
+- name: Install systemd-unit
+  template:
+    src: "systemd-promtail.j2"
+    dest: "/etc/systemd/system/promtail.service"
+  notify:
+    - reload systemd promtail
+  when: "__loki_go_os == 'linux'"
+
+- name: Create config directories for promtail
+  file:
+    mode: '0755'
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ promtail_config_directory }}"
+    - /var/lib/promtail
+
+- name: Setup configuration
+  template:
+    src: "promtail.yml.j2"
+    dest: "/etc/promtail/promtail.yml"
+    mode: '0644'
+  register: conf_tpl
+  notify:
+    - restart systemd promtail
+
 - name: check if local promtail download exists
   stat:
     path: "/tmp/{{ __promtail_archive }}"
@@ -35,5 +61,5 @@
     mode: 0755
     owner: root
     group: root
-  notify: restart systemd units
+  notify: restart systemd promtail
   when: not ansible_check_mode

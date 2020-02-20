@@ -1,0 +1,4 @@
+---
+- name: Check targets
+  assert:
+    that: __install_loki or __install_promtail
