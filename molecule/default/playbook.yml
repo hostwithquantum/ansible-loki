@@ -1,5 +1,16 @@
 ---
 - name: Converge
-  hosts: all
+  hosts: loki
   roles:
     - role: ansible-loki
+      vars:
+        loki_parts_to_install:
+          - loki
+
+- name: Converge
+  hosts: promtail
+  roles:
+    - role: ansible-loki
+      vars:
+        loki_parts_to_install:
+            - promtail

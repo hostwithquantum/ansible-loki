@@ -13,11 +13,12 @@ loki_config_log_level: debug
 
 promtail_config_directory: /etc/promtail
 promtail_config_log_level: info
-promtail_config_client:
-  loki_address: 127.0.0.1
-  loki_port: 3100
-  tenant_id: luzilla
-  external_labels:
+promtail_config_client_loki_address: 127.0.0.1
+promtail_config_client_loki_port: 3100
+promtail_config_client_loki_path: /loki/api/v1/push
+promtail_config_client_tenant_id: luzilla
+promtail_config_client_set_tenant_id: true
+promtail_config_client_external_labels:
     node: "{{ inventory_hostname }}"
 
 promtail_config_scrape_journald_path: /run/log/journal

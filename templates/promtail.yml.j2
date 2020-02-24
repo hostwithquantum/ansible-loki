@@ -12,11 +12,13 @@ positions:
 
 # Loki Server URL
 clients:
-  - url: http://{{ promtail_config_client.loki_address }}:{{ promtail_config_client.loki_port }}/loki/api/v1/push
-    tenant_id: {{ promtail_config_client.tenant_id }}
+  - url: http://{{ promtail_config_client_loki_address }}:{{ promtail_config_client_loki_port }}{{ promtail_config_client_loki_path }}
+{% if promtail_config_client_set_tenant_id %}
+    tenant_id: {{ promtail_config_client_tenant_id }}
+{% endif %}
     external_labels:
-{% for label_key in promtail_config_client.external_labels %}
-      {{ label_key }}: {{ promtail_config_client.external_labels[label_key] }}
+{% for label_key in promtail_config_client_external_labels %}
+      {{ label_key }}: {{ promtail_config_client_external_labels[label_key] }}
 {% endfor %}
 
 {% if __loki_go_os == 'linux' %}

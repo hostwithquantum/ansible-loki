@@ -1,22 +1,22 @@
 ---
-- name: reload systemd for loki
+- name: reload systemd loki
   systemd:
-    name: loki
+    name: "loki"
     daemon_reload: yes
-    enabled: yes
+    enabled: Yes
 
-- name: reload systemd for promtail
-  systemd:
-    name: promtail
-    daemon_reload: yes
-    enabled: yes
-
-- name: restart loki
+- name: restart systemd loki
   service:
-    name: loki
+    name: "loki"
     state: restarted
 
-- name: restart promtail
+- name: reload systemd promtail
+  systemd:
+    name: "promtail"
+    daemon_reload: yes
+    enabled: Yes
+
+- name: restart systemd promtail
   service:
-    name: promtail
+    name: "promtail"
     state: restarted

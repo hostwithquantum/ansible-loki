@@ -1,4 +1,31 @@
 ---
+- name: Install systemd-unit
+  template:
+    src: "systemd-loki.j2"
+    dest: "/etc/systemd/system/loki.service"
+  register: unit_tpl
+  notify:
+    - reload systemd loki
+  when: "__loki_go_os == 'linux'"
+
+- name: Create config directories for loki
+  file:
+    mode: '0755'
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ loki_config_directory }}"
+    - "{{ loki_config_store }}"
+
+- name: Setup configuration
+  template:
+    src: "loki.yml.j2"
+    dest: "/etc/loki/loki.yml"
+    mode: '0644'
+  register: conf_tpl
+  notify:
+    - restart systemd loki
+
 # FIXME: check version
 - name: check if local loki download exists
   stat:
@@ -36,5 +63,5 @@
     mode: 0755
     owner: root
     group: root
-  notify: restart loki
+  notify: restart systemd loki
   when: not ansible_check_mode

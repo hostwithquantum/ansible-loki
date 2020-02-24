@@ -12,32 +12,34 @@ Role Variables
 
 See `defaults/main.yml` to customize this role.
 
-In addition, please set "roles" in your inventory:
-
-```
-all:
-  hosts:
-    server
-  children:
-    loki:
-      hosts:
-        server
-    promtail:
-      hosts:
-        server
-```
-
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+_None._
 
 Example Playbook
 ----------------
 
-    - hosts: all
-      roles:
-         - { role: ansible-loki }
+This role is driven by inventory groups:
+
+```
+all:
+  hosts:
+    monitoring.host.example.org:
+  children:
+    loki:
+      monitoring.host.example.org:
+    promtail:
+      monitoring.host.example.org:
+```
+
+And the playbook:
+
+```
+- hosts: all
+  roles:
+    - { role: ansible-loki }
+```
 
 License
 -------
