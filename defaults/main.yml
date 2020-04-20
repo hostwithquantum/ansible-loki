@@ -5,7 +5,7 @@ loki_version: v1.2.0
 loki_config_directory: /etc/loki
 loki_config_auth: true
 loki_config_store: /var/lib/loki
-loki_config_retention: 840h
+loki_config_retention: 336h
 loki_config_period: 168h
 loki_config_http_address: 127.0.0.1
 loki_config_http_port: 3100
