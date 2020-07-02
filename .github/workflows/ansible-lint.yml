@@ -1,0 +1,16 @@
+---
+name: ansible-lint
+
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: ansible-lint
+        uses: ansible/ansible-lint-action@master
+        with:
+          targets: "."
