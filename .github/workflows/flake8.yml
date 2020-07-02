@@ -1,0 +1,15 @@
+---
+name: flake8
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup flake8 annotations
+        uses: rbialon/flake8-annotations@v1
+      - name: Flake8 Code Linter
+        uses: jonasrk/flake8-action@master
