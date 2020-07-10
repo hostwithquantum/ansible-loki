@@ -1,3 +1,5 @@
+![ansible-lint](https://github.com/hostwithquantum/ansible-loki/workflows/ansible-lint/badge.svg) ![flake8](https://github.com/hostwithquantum/ansible-loki/workflows/flake8/badge.svg) ![yaml-lint](https://github.com/hostwithquantum/ansible-loki/workflows/yaml-lint/badge.svg) ![molecule](https://github.com/hostwithquantum/ansible-loki/workflows/molecule/badge.svg)
+
 # ansible-loki
 
 An Ansible role to install loki and promtail.
@@ -38,13 +40,13 @@ And the playbook:
 ```
 - hosts: all
   roles:
-    - { role: ansible-loki }
+    - { role: hostwithquantum.loki }
 ```
 
 License
 -------
 
-BSD
+BSD-2-Clause
 
 Author Information
 ------------------

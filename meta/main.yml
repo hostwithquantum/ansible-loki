@@ -19,7 +19,7 @@ galaxy_info:
   #   - 99.99
 
   platforms:
-    - name: CentOS
+    - name: el
       versions:
         - 7
     - name: FreeBSD
@@ -27,6 +27,7 @@ galaxy_info:
         - all
 
   galaxy_tags:
+    - promtail
     - loki
     - grafana
     - logging
