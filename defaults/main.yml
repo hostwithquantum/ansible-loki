@@ -1,7 +1,6 @@
 ---
 loki_version: v1.2.0
 
-# FIXME: install Apache or nginx for auth
 loki_config_directory: /etc/loki
 loki_config_auth: true
 loki_config_store: /var/lib/loki
