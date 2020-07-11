@@ -1,0 +1,12 @@
+---
+- name: Prepare hosts
+  hosts: all
+  roles:
+    - role: ansible-loki
+
+  pre_tasks:
+  - name: Install unzip
+    package:
+      name:
+        - unzip
+    delegate_to: localhost
