@@ -52,7 +52,8 @@
         creates: "/tmp/promtail-{{ __loki_go_os }}-{{ __loki_go_arch }}"
       delegate_to: localhost
       check_mode: false
-  when: not promtail_exists.stat.exists
+  when:
+    - (not promtail_exists.stat.exists or __promtail_version != loki_version)
 
 - name: Distribute promtail to servers
   copy:
@@ -62,4 +63,6 @@
     owner: root
     group: root
   notify: restart systemd promtail
-  when: not ansible_check_mode
+  when:
+    - not ansible_check_mode
+    - (__promtail_version != loki_version)

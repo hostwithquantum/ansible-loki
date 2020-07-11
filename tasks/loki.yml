@@ -26,8 +26,7 @@
   notify:
     - restart systemd loki
 
-# FIXME: check version
-- name: check if local loki download exists
+- name: Check if local loki download exists
   stat:
     path: "/tmp/{{ __loki_archive }}"
   register: loki_exists
@@ -54,7 +53,9 @@
         creates: "/tmp/loki-{{ __loki_go_os }}-{{ __loki_go_arch }}"
       delegate_to: localhost
       check_mode: false
-  when: not loki_exists.stat.exists
+  when:
+    - (not loki_exists.stat.exists or __loki_version != loki_version)
+
 
 - name: Distribute loki to servers
   copy:
@@ -64,4 +65,6 @@
     owner: root
     group: root
   notify: restart systemd loki
-  when: not ansible_check_mode
+  when:
+    - not ansible_check_mode
+    - (__loki_version != loki_version)

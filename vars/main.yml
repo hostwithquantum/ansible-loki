@@ -32,3 +32,6 @@ __promtail_download: "{{ __loki_download_github }}/{{ loki_version }}/{{ __promt
 
 __install_loki: "{{ inventory_hostname in groups['loki'] | default([]) }}"
 __install_promtail: "{{ inventory_hostname in groups['promtail'] | default([]) }}"
+
+__loki_version: ""
+__promtail_version: ""
