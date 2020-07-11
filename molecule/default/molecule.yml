@@ -3,11 +3,10 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
 platforms:
   - name: instance
-    image: centos:7
+    image: geerlingguy/docker-centos7-ansible:latest
+    pre_build_image: True
     command: /sbin/init
     env:
       MOLECULE_DEBUG: "1"
@@ -25,8 +24,6 @@ provisioner:
   options:
     diff: false
     v: true
-  lint:
-    name: ansible-lint
 verifier:
   name: testinfra
   lint:
