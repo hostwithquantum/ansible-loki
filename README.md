@@ -7,7 +7,7 @@ An Ansible role to install loki and promtail.
 Requirements
 ------------
 
- - `unzip` on the manager host
+ - `unzip` on the hosts
 
 Role Variables
 --------------

@@ -3,38 +3,29 @@
   assert:
     that: __install_loki or __install_promtail
 
-- name: Is loki installed?
-  block:
-    - name: Check version
-      block:
-        - name: Is it installed?
-          stat:
-            path: /usr/local/bin/loki
-          register: __loki_stat
-        - name: Get version
-          command: /usr/local/bin/loki -version
-          changed_when: false
-          register: __loki_version_out
-          when: __loki_stat.stat.exists
-        - name: Set version
-          set_fact:
-            __loki_version: "{{ __loki_version_out.stdout_lines[0].split(' ')[2] }}"
-          when: __loki_stat.stat.exists
+- name: Check version
+  assert:
+    that: not loki_version.startswith('v')
+    fail_msg: "loki_version must be '1.2.0', and not 'v1.2.0'"
 
-- name: Is promtail installed?
-  block:
-    - name: Check version
-      block:
-        - name: Is it installed?
-          stat:
-            path: /usr/local/bin/promtail
-          register: __promtail_stat
-        - name: Get version
-          command: /usr/local/bin/promtail -version
-          changed_when: false
-          register: __promtail_version_out
-          when: __promtail_stat.stat.exists
-        - name: Set version
-          set_fact:
-            __promtail_version: "{{ __promtail_version_out.stdout_lines[0].split(' ')[2] }}"
-          when: __promtail_stat.stat.exists
+- name: "Preflight: loki"
+  include_tasks: preflight-loki.yml
+  when: __install_loki
+
+- name: Empty version
+  set_fact:
+    __loki_version: ""
+  when:
+    - __install_loki
+    - __loki_version is not defined
+
+- name: "Preflight: promtail"
+  include_tasks: preflight-promtail.yml
+  when:
+    - __install_promtail
+    - __promtail_version is not defined
+
+- name: Empty version
+  set_fact:
+    __promtail_version: ""
+  when: not __promtail_stat.stat.exists

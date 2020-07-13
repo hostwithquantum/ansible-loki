@@ -1,0 +1,14 @@
+---
+- name: Is it installed?
+  stat:
+    path: /usr/local/bin/promtail
+  register: __promtail_stat
+- name: Get version
+  command: /usr/local/bin/promtail -version
+  changed_when: false
+  register: __promtail_version_out
+  when: __promtail_stat.stat.exists
+- name: Set version
+  set_fact:
+    __promtail_version: "{{ __promtail_version_out.stdout_lines[0].split(' ')[2] | replace('v', '') }}"
+  when: __promtail_stat.stat.exists

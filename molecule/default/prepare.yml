@@ -4,6 +4,6 @@
   tasks:
   - name: Install unzip
     package:
+      disablerepo: epel
       name:
         - unzip
-    delegate_to: localhost

@@ -25,13 +25,10 @@ __loki_go_arch: "{{ __loki_go_arch_map[ansible_architecture] | default(ansible_a
 __loki_download_github: "https://github.com/grafana/loki/releases/download"
 
 __loki_archive: "loki-{{ __loki_go_os }}-{{ __loki_go_arch }}.zip"
-__loki_download: "{{ __loki_download_github }}/{{ loki_version }}/{{ __loki_archive }}"
+__loki_download: "{{ __loki_download_github }}/v{{ loki_version }}/{{ __loki_archive }}"
 
 __promtail_archive: "promtail-{{ __loki_go_os }}-{{ __loki_go_arch }}.zip"
-__promtail_download: "{{ __loki_download_github }}/{{ loki_version }}/{{ __promtail_archive }}"
+__promtail_download: "{{ __loki_download_github }}/v{{ loki_version }}/{{ __promtail_archive }}"
 
-__install_loki: "{{ inventory_hostname in groups['loki'] | default([]) }}"
-__install_promtail: "{{ inventory_hostname in groups['promtail'] | default([]) }}"
-
-__loki_version: ""
-__promtail_version: ""
+__install_loki: "{{ inventory_hostname in groups['loki'] | default(false) }}"
+__install_promtail: "{{ inventory_hostname in groups['promtail'] | default(false) }}"

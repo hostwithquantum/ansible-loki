@@ -1,6 +1,10 @@
 ---
 - import_tasks: preflight.yml
 
+- name: "Show version"
+  debug:
+    msg: "Requested: {{ loki_version }}, (Current) Promtail: {{ __promtail_version }}, Loki: {{ __loki_version }}"
+
 - name: Install loki
   include_tasks: loki.yml
   when: __install_loki

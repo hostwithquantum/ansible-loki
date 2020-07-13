@@ -1,0 +1,14 @@
+---
+- name: Is it installed?
+  stat:
+    path: /usr/local/bin/loki
+  register: __loki_stat
+- name: Get version
+  command: /usr/local/bin/loki -version
+  changed_when: false
+  register: __loki_version_out
+  when: __loki_stat.stat.exists
+- name: Set version
+  set_fact:
+    __loki_version: "{{ __loki_version_out.stdout_lines[0].split(' ')[2] | replace('v', '') }}"
+  when: __loki_stat.stat.exists
