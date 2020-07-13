@@ -1,15 +1,15 @@
 SHELL=/bin/bash
 
-.PHONY: test
-test:
-	drone exec --trusted
+IMAGE:=quay.io/ansible/molecule:3.0.4
+ANSIBLE_ROLE:=ansible-loki
+OPTS?=--all
 
 .PHONY: test-local
 test-local:
 	docker run --rm -it \
-		-v "$(shell pwd)":/tmp/$(shell basename "$(shell pwd)"):ro \
+		-v "$(CURDIR)":/tmp/$(ANSIBLE_ROLE):ro \
 		-v /var/run/docker.sock:/var/run/docker.sock \
-		-w /tmp/$(shell basename "$(shell PWD)") \
+		-w /tmp/$(ANSIBLE_ROLE) \
 		--env MOLECULE_NO_LOG=no \
-		quay.io/ansible/molecule:2.20 \
-		molecule test
+		$(IMAGE) \
+		molecule test $(OPTS)
