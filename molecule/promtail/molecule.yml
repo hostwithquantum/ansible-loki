@@ -1,0 +1,29 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: geerlingguy/docker-centos7-ansible:latest
+    pre_build_image: True
+    command: /sbin/init
+    env:
+      MOLECULE_DEBUG: "1"
+    privileged: True
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    groups:
+      - promtail
+provisioner:
+  name: ansible
+  options:
+    diff: false
+    v: true
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

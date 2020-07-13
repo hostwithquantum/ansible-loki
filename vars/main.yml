@@ -30,5 +30,5 @@ __loki_download: "{{ __loki_download_github }}/v{{ loki_version }}/{{ __loki_arc
 __promtail_archive: "promtail-{{ __loki_go_os }}-{{ __loki_go_arch }}.zip"
 __promtail_download: "{{ __loki_download_github }}/v{{ loki_version }}/{{ __promtail_archive }}"
 
-__install_loki: "{{ inventory_hostname in groups['loki'] | default(false) }}"
-__install_promtail: "{{ inventory_hostname in groups['promtail'] | default(false) }}"
+__install_loki: "{{ inventory_hostname in groups['loki'] | default([]) }}"
+__install_promtail: "{{ inventory_hostname in groups['promtail'] | default([]) }}"

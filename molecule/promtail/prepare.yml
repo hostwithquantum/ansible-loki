@@ -1,0 +1,9 @@
+---
+- name: Prepare hosts
+  hosts: all
+  pre_tasks:
+  - name: Install unzip
+    package:
+      disablerepo: epel
+      name:
+        - unzip
