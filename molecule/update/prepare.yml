@@ -1,7 +1,9 @@
 ---
 - name: Prepare hosts
   hosts: all
-  tasks:
+  roles:
+    - role: ansible-loki
+  pre_tasks:
   - name: Install unzip
     package:
       disablerepo: epel
