@@ -1,0 +1,31 @@
+---
+on:
+  pull_request:
+
+name: molecule-extended
+
+jobs:
+  molecule-promtail:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: "${{ github.repository }}"
+      - name: molecule test
+        uses: robertdebock/molecule-action@2.6.1
+        with:
+          scenario: promtail
+          image: centos
+          tag: 7
+  molecule-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: "${{ github.repository }}"
+      - name: molecule test
+        uses: robertdebock/molecule-action@2.6.1
+        with:
+          scenario: update
+          image: centos
+          tag: 7
