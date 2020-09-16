@@ -3,6 +3,7 @@
   template:
     src: "systemd-loki.j2"
     dest: "/etc/systemd/system/loki.service"
+    mode: '0644'
   register: unit_tpl
   notify:
     - reload systemd loki
@@ -32,6 +33,7 @@
         url: "{{ __loki_download }}"
         dest: "/tmp/{{ __loki_archive }}"
         checksum: "sha256:{{ __loki_download_github }}/v{{ loki_version }}/SHA256SUMS"
+        mode: '0644'
       register: _download_release
       until: _download_release is succeeded
       retries: 5
@@ -43,6 +45,7 @@
         dest: "/tmp"
         creates: "/tmp/loki-{{ __loki_go_os }}-{{ __loki_go_arch }}"
         remote_src: true
+        mode: '0644'
 
     - name: Copy loki to /usr/local/bin
       copy:
