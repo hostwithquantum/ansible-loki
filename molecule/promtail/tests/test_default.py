@@ -14,7 +14,7 @@ def test_only_promtail_is_present(host):
 
 def test_promtail_version(host):
     version_output = host.check_output("/usr/local/bin/promtail -version")
-    assert "1.5.0" in version_output
+    assert "1.6.1" in version_output
 
 
 def test_loki_is_not_install(host):

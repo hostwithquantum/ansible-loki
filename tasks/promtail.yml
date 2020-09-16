@@ -3,6 +3,7 @@
   template:
     src: "systemd-promtail.j2"
     dest: "/etc/systemd/system/promtail.service"
+    mode: '0644'
   notify:
     - reload systemd promtail
   when: "__loki_go_os == 'linux'"
@@ -31,6 +32,7 @@
         url: "{{ __promtail_download }}"
         dest: "/tmp/{{ __promtail_archive }}"
         checksum: "sha256:{{ __loki_download_github }}/v{{ loki_version }}/SHA256SUMS"
+        mode: '0644'
       register: _download_binary
       until: _download_binary is succeeded
       retries: 5
@@ -41,6 +43,7 @@
         src: "/tmp/{{ __promtail_archive }}"
         dest: "/tmp"
         creates: "/tmp/promtail-{{ __loki_go_os }}-{{ __loki_go_arch }}"
+        mode: '0644'
         remote_src: true
 
     - name: Copy promtail to /usr/local/bin

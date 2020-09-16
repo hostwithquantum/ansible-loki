@@ -1,5 +1,5 @@
 ---
-loki_version: 1.2.0
+loki_version: 1.6.1
 
 loki_config_directory: /etc/loki
 loki_config_auth: true

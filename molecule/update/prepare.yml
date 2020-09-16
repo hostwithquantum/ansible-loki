@@ -3,6 +3,8 @@
   hosts: all
   roles:
     - role: ansible-loki
+      vars:
+        loki_version: 1.5.0
   pre_tasks:
   - name: Install unzip
     package:

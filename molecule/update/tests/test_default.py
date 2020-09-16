@@ -43,4 +43,4 @@ def test_services_enabled(host, name):
 ])
 def test_version(host, name):
     version_output = host.check_output("/usr/local/bin/" + name + " -version")
-    assert "1.5.0" in version_output
+    assert "1.6.1" in version_output
