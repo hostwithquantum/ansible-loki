@@ -1,8 +1,8 @@
 {{ ansible_managed | comment }}
 server:
-  http_listen_address: 127.0.0.1
-  http_listen_port: 9080
-  grpc_listen_address: 127.0.0.1
+  http_listen_address: {{ promtail_config_server_listen }}
+  http_listen_port: {{ promtail_config_server_port }}
+  grpc_listen_address: {{ promtail_config_server_listen }}
   grpc_listen_port: 0
   log_level: {{ promtail_config_log_level }}
 

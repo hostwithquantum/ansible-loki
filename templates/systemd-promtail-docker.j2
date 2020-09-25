@@ -1,0 +1,25 @@
+[Unit]
+Description=Promtail Loki Agent
+Documentation=https://github.com/grafana/loki
+After=docker.service
+PartOf=docker.service
+Requires=docker.service
+ 
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm -f %n
+ExecStart=/usr/bin/docker run \
+    --rm \
+    -v {{ promtail_config_directory }}:{{ promtail_config_directory }}:ro \
+    -v {{ promtail_config_scrape_journald_path }}:{{ promtail_config_scrape_journald_path }} \
+    -v /var/lib/promtail:/var/lib/promtail \
+    -p 127.0.0.1:{{ promtail_config_server_port }}:{{ promtail_config_server_port }} \
+    --name %n {{ promtail_docker_image }} \
+    -config.file={{ promtail_config_directory }}/promtail.yml
+Restart=always
+RestartSec=10s
+SyslogIdentifier=%n
+ 
+[Install]
+WantedBy=docker.service

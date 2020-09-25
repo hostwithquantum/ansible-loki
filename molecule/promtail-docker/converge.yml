@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-loki
+      vars:
+        loki_version: 1.6.1
+        promtail_use_docker: true
+        promtail_config_server_listen: 0.0.0.0
+        promtail_config_server_port: 9080

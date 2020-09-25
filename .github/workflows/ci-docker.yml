@@ -1,0 +1,19 @@
+---
+on:
+  pull_request:
+
+name: molecule-promtail
+
+jobs:
+  molecule-promtail-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: "${{ github.repository }}"
+      - name: molecule test
+        uses: robertdebock/molecule-action@2.6.1
+        with:
+          scenario: promtail-docker
+          image: centos
+          tag: 7
