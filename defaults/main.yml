@@ -10,8 +10,14 @@ loki_config_http_address: 127.0.0.1
 loki_config_http_port: 3100
 loki_config_log_level: debug
 
+# install a containerized promtail
+promtail_use_docker: false
+promtail_docker_image: "grafana/promtail:{{ loki_version }}"
+
 promtail_config_directory: /etc/promtail
 promtail_config_log_level: info
+promtail_config_server_listen: 127.0.0.1
+promtail_config_server_port: 9080
 promtail_config_client_loki_address: 127.0.0.1
 promtail_config_client_loki_port: 3100
 promtail_config_client_loki_path: /loki/api/v1/push

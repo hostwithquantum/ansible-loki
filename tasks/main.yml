@@ -7,4 +7,12 @@
 
 - name: Install promtail
   include_tasks: promtail.yml
-  when: __install_promtail
+  when:
+    - __install_promtail
+    - not promtail_use_docker
+
+- name: Install promtail [Docker]
+  include_tasks: promtail-docker.yml
+  when:
+    - __install_promtail
+    - promtail_use_docker

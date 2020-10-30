@@ -1,0 +1,18 @@
+---
+- name: Create config directories for promtail
+  file:
+    mode: '0755'
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ promtail_config_directory }}"
+    - /var/lib/promtail
+
+- name: Setup configuration
+  template:
+    src: "promtail.yml.j2"
+    dest: "/etc/promtail/promtail.yml"
+    mode: '0644'
+  register: conf_tpl
+  notify:
+    - restart systemd promtail

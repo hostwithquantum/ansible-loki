@@ -1,0 +1,18 @@
+---
+- name: Configure
+  import_tasks: promtail-config.yml
+
+- name: Download/pre-seed promtail image
+  docker_image:
+    name: "{{ promtail_docker_image }}"
+    source: pull
+
+- name: Install systemd service
+  template:
+    src: systemd-promtail-docker.j2
+    dest: /etc/systemd/system/promtail.service
+    mode: '0644'
+  notify:
+    - reload systemd promtail
+    - restart systemd promtail
+  when: "__loki_go_os == 'linux'"

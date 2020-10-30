@@ -1,0 +1,6 @@
+---
+- name: atosatto.docker-swarm
+  version: v2.3.0
+- name: geerlingguy.pip
+  src: https://github.com/geerlingguy/ansible-role-pip
+  version: 1.3.0
