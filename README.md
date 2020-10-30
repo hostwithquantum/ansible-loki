@@ -4,8 +4,7 @@
 
 An Ansible role to install Grafana Loki and Promtail.
 
-Requirements
-------------
+## Requirements
 
 For the standard (from binary) install of loki/promtail:
 
@@ -13,25 +12,22 @@ For the standard (from binary) install of loki/promtail:
 
 For the dockerized promtail:
 
-  - Python: `docker==4.3.1`
-  - `docker-cli`
+ - Python: `docker==4.3.1`
+ - `docker-cli`
 
-Role Variables
---------------
+## Role Variables
 
 See `defaults/main.yml` to customize this role.
 
-Dependencies
-------------
+## Dependencies
 
 _None._
 
-Example Playbook
-----------------
+## Example Playbook
 
 This role is driven by inventory groups:
 
-```
+```yaml
 all:
   hosts:
     monitoring.host.example.org:
@@ -50,12 +46,10 @@ And the playbook:
     - role: hostwithquantum.loki
 ```
 
-License
--------
+## License
 
 BSD-2-Clause
 
-Author Information
-------------------
+## Author Information
 
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
